@@ -40,6 +40,7 @@ Released under the MIT license: http://jsbin.mit-license.org
 </head>
 <body>
     <h1>Test of jQuery .when</h1>
+    <p>This is primarily a test of the jQuery .when facility</p>
     <p>Look at console messages for output of this test</p>
 <script id="jsbin-javascript">
 var p0 = new Promise(function(resolve,reject){
@@ -60,7 +61,7 @@ var p00 = new Promise(function(resolve,reject){
 var p10 = new Promise(function(resolve,reject){
     setTimeout(function(){
         resolve("Yay! This is p10");
-    },199);
+    },1);
 });
 
 console.log("A");
@@ -108,11 +109,11 @@ function onSuccess () {
 }
 
 function callback (data) {
-    console.log(data);
+    console.log('Call back : ' + data);
 }
     
 function showData() {
-    console.log(count);
+    console.log('showData : ' + count);
 }
 
 function method1() {
