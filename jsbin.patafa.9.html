@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2016 by rshea (http://jsbin.com/patafa/9/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/momentjs/2.10.6/moment-with-locales.min.js"></script>
+<meta name="description" content="Promises Sandbox">
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Promises Sandbox</title>
+
+    <style>
+      body {
+      padding-top: 80px;
+      text-align: center;
+      font-family: monaco, monospace;
+      
+    h1, h2 {
+      display: inline-block;
+      background: #fff;
+    }
+    h1 {
+      font-size: 30px
+    }
+    h2 {
+      font-size: 20px;
+    }
+    span {
+      background: #fd0;
+    }
+    </style>
+</head>
+<body>
+    <h1>Test of jQuery .when</h1>
+    <p>Look at console messages for output of this test</p>
+<script id="jsbin-javascript">
+var p0 = new Promise(function(resolve,reject){
+    setTimeout(function(){
+        resolve("Yay! This is p0");
+    },20);
+});
+var p1 = new Promise(function(resolve,reject){
+    setTimeout(function(){
+        resolve("Yay! This is p1");
+    },19);
+});
+var p00 = new Promise(function(resolve,reject){
+    setTimeout(function(){
+        resolve("Yay! This is p00");
+    },200);
+});
+var p10 = new Promise(function(resolve,reject){
+    setTimeout(function(){
+        resolve("Yay! This is p10");
+    },199);
+});
+
+console.log("A");
+p0.then(function(msg){
+    console.log(msg); // Yay!
+});
+p1.then(function(msg){
+    console.log(msg); // Yay!
+});
+console.log("B");
+//var fetch0 = function() { return {$.ajax('https://httpbin.org/get?A=B,C,D')}};
+var fetch1 = function() 
+{ 
+  return function(){
+    $.ajax('https://httpbin.org/get?Z=Y,X,W');  
+  };
+};
+var fetch11 = function() 
+{ 
+  $.ajax('https://httpbin.org/get?Z=Y,X,W');  
+};
+//var fetch1 = { return {$.ajax}}
+var goodFetches = function (v1, v2){
+  console.log("GOOD : All out of when's");
+  console.log(v1[0].args.A);
+  //console.log(v1[1]);
+  //console.log(v1[2].statusText);
+  //console.log(v1[2].responseJSON.args.A);
+  console.log(v2[0].args.Z);
+  console.log(v2);  
+};
+var badFetches = function(v1, v2){
+  console.log("BAD : All out of when's");
+  console.log(v1.responseText);
+  console.log(v2.responseText);
+};
+//$.when( fetch11, $.ajax('https://httpbin.org/get?Z=Y,X,W'))
+//  .then(goodFetches, badFetches);
+console.log("C");
+console.log("1++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+var count = 0;
+
+function onSuccess () {
+    count++;
+}
+
+function callback (data) {
+    console.log(data);
+}
+    
+function showData() {
+    alert(count);
+}
+
+function method1() {
+    return $.ajax('http://jsfiddle.net/echo/jsonp/', {
+        dataType: 'jsonp',
+        //jsonp: '$callback',
+        success: onSuccess
+    });
+}
+
+function method2() {
+    return $.ajax('http://jsfiddle.net/echo/jsonp/', {
+        dataType: 'jsonp',
+        //jsonp: '$callback',
+        success: onSuccess
+    });
+}
+
+$.when(method1(), method2()).then(showData);
+console.log("2++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+
+</script>
+</body>
+</html>
