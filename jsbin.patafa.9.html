@@ -16,16 +16,17 @@ Released under the MIT license: http://jsbin.mit-license.org
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Promises Sandbox</title>
+    
 
     <style>
       body {
       padding-top: 80px;
       text-align: center;
       font-family: monaco, monospace;
-      
+      background: #ff5d00;
+    }
     h1, h2 {
       display: inline-block;
-      background: #fff;
     }
     h1 {
       font-size: 30px
@@ -36,13 +37,29 @@ Released under the MIT license: http://jsbin.mit-license.org
     span {
       background: #fd0;
     }
+    #output{
+        background: #ccb100;
+        width: 50%;
+        margin: auto;
+        border-width: 3px;
+        border-color: #a2ff00;
+        border-style: solid;
+    }
+    #logout{
+        padding-top: 0.5em;
+    }   
     </style>
 </head>
 <body>
     <h1>Test of jQuery .when</h1>
     <p>This is primarily a test of the jQuery .when facility</p>
-    <p>Look at console messages for output of this test</p>
+    <p>Look at console messages for output of this test as well as the area below.</p>
+    <div id='output'></div>
 <script id="jsbin-javascript">
+function logit(s){
+    console.log(s);
+    $('#output').append('<div class=logout><pre>' + s + '</pre></div>');
+}
 var p0 = new Promise(function(resolve,reject){
     setTimeout(function(){
         resolve("Yay! This is p0");
@@ -65,13 +82,14 @@ var p10 = new Promise(function(resolve,reject){
 });
 
 console.log("A");
+logit("A");
 p0.then(function(msg){
-    console.log(msg); // Yay!
+    logit(msg); // Yay!
 });
 p1.then(function(msg){
-    console.log(msg); // Yay!
+    logit(msg); // Yay!
 });
-console.log("B");
+logit("B");
 //var fetch0 = function() { return {$.ajax('https://httpbin.org/get?A=B,C,D')}};
 var fetch1 = function() 
 { 
@@ -85,23 +103,23 @@ var fetch11 = function()
 };
 //var fetch1 = { return {$.ajax}}
 var goodFetches = function (v1, v2){
-  console.log("GOOD : All out of when's");
-  console.log(v1[0].args.A);
-  //console.log(v1[1]);
-  //console.log(v1[2].statusText);
-  //console.log(v1[2].responseJSON.args.A);
-  console.log(v2[0].args.Z);
-  console.log(v2);  
+  logit("GOOD : All out of when's");
+  logit(v1[0].args.A);
+  //logit(v1[1]);
+  //logit(v1[2].statusText);
+  //logit(v1[2].responseJSON.args.A);
+  logit(v2[0].args.Z);
+  logit(v2);  
 };
 var badFetches = function(v1, v2){
-  console.log("BAD : All out of when's");
-  console.log(v1.responseText);
-  console.log(v2.responseText);
+  logit("BAD : All out of when's");
+  logit(v1.responseText);
+  logit(v2.responseText);
 };
 //$.when( fetch11, $.ajax('https://httpbin.org/get?Z=Y,X,W'))
 //  .then(goodFetches, badFetches);
-console.log("C");
-console.log("1++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+logit("C");
+logit("1++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 var count = 0;
 
 function onSuccess () {
@@ -109,11 +127,11 @@ function onSuccess () {
 }
 
 function callback (data) {
-    console.log('Call back : ' + data);
+    logit('Call back : ' + data);
 }
     
 function showData() {
-    console.log('showData : ' + count);
+    logit('showData : ' + count);
 }
 
 function method1() {
@@ -133,7 +151,7 @@ function method2() {
 }
 
 $.when(method1(), method2()).then(showData);
-console.log("2++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+logit("2++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
 
 </script>
