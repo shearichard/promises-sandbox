@@ -1,0 +1,26 @@
+body {
+    padding-top: 80px;
+    text-align: center;
+    font-family: monaco, monospace;
+    background: #ff5d00;
+}
+h1 {
+    font-size: 30px
+}
+h2 {
+    font-size: 20px;
+}
+span {
+    background: #fd0;
+}
+#output{
+    background: #ccb100;
+    width: 50%;
+    margin: auto;
+    border-width: 3px;
+    border-color: #a2ff00;
+    border-style: solid;
+}
+#logout{
+    padding-top: 0.5em;
+}   
