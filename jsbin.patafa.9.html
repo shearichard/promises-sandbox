@@ -2,9 +2,7 @@
 <!--
 Created using JS Bin
 http://jsbin.com
-
 Copyright (c) 2016 by rshea (http://jsbin.com/patafa/9/edit)
-
 Released under the MIT license: http://jsbin.mit-license.org
 -->
 <meta name="robots" content="noindex">
@@ -17,7 +15,6 @@ Released under the MIT license: http://jsbin.mit-license.org
   <meta name="viewport" content="width=device-width">
   <title>Promises Sandbox</title>
     
-
     <style>
       body {
       padding-top: 80px;
@@ -80,14 +77,13 @@ var p10 = new Promise(function(resolve,reject){
         resolve("Yay! This is p10");
     },1);
 });
-
 console.log("A");
 logit("A");
 p0.then(function(msg){
-    logit(msg); // Yay!
+    logit(msg); 
 });
 p1.then(function(msg){
-    logit(msg); // Yay!
+    logit(msg); 
 });
 logit("B");
 //var fetch0 = function() { return {$.ajax('https://httpbin.org/get?A=B,C,D')}};
@@ -121,11 +117,9 @@ var badFetches = function(v1, v2){
 logit("C");
 logit("1++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 var count = 0;
-
 function onSuccess () {
     count++;
 }
-
 function callback (data) {
     logit('Call back : ' + data);
 }
@@ -133,7 +127,6 @@ function callback (data) {
 function showData() {
     logit('showData : ' + count);
 }
-
 function method1() {
     return $.ajax('http://jsfiddle.net/echo/jsonp/', {
         dataType: 'jsonp',
@@ -141,7 +134,6 @@ function method1() {
         success: onSuccess
     });
 }
-
 function method2() {
     return $.ajax('http://jsfiddle.net/echo/jsonp/', {
         dataType: 'jsonp',
@@ -149,10 +141,8 @@ function method2() {
         success: onSuccess
     });
 }
-
 $.when(method1(), method2()).then(showData);
 logit("2++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-
 
 </script>
 </body>
