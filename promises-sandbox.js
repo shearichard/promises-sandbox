@@ -7,9 +7,15 @@ $( document ).ready(function() {
         console.log(strMsSinceEpoch.substring(strMsSinceEpoch.length - 6) + ' ' + s);
     }
     var count = 0;
-    function onSuccess () {
+    function onSuccess (data, textStatus, jqXHR) {
+        debugger;
+        logit('In onError.');
         logit('In onSuccess. About to increment count. Current value is  : ' + count);
         count++;
+    }
+    function onError (data, textStatus, jqXHR) {
+        debugger;
+        logit('In onError.');
     }
     function callback (data) {
         logit('Call back : ' + data);
@@ -22,14 +28,16 @@ $( document ).ready(function() {
         return $.ajax('http://jsfiddle.net/echo/jsonp/', {
             dataType: 'jsonp',
             //jsonp: '$callback',
-            success: onSuccess
+            success: onSuccess,
+            error: onError
         });
     }
     function method2() {
-        return $.ajax('http://jsfiddle.net/echo/jsonp/', {
+        return $.ajax('http://UNLIKELYjsfiddle.net/echo/jsonp/', {
             dataType: 'jsonp',
             //jsonp: '$callback',
-            success: onSuccess
+            success: onSuccess,
+            error: onError
         });
     }
     logit("1++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -38,7 +46,7 @@ $( document ).ready(function() {
     logit("Finished invoke of method1 and method 2");
     logit("2++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     var myAjaxCall1 = function() {
-       return $.ajax('https://httpbin.org/get?Z=Y,X,W');
+       return $.ajax('https://UNLIKLEYhttpbin.org/get?Z=Y,X,W');
     };
 
     var myAjaxCall2 = function() {
@@ -56,9 +64,13 @@ $( document ).ready(function() {
         logit(a2[0].args.A);
         logit("End allGood");
     };
+    var someProblems = function(a1, a2){
+        logit("Start someProblems");
+        logit("End someProblems");
+    };
 
     logit("About to invoke myAjaxCall1 and myAjaxCall2");
-    $.when( myAjaxCall1(), myAjaxCall2() ).then(allGood)
+    $.when( myAjaxCall1(), myAjaxCall2() ).then(allGood, someProblems)
     logit("Finished invoke of myAjaxCall1 and myAjaxCall2");
     logit("3++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 });
