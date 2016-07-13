@@ -1,8 +1,19 @@
 $( document ).ready(function() {
   // Handler for .ready() called.
     function logit(s){
-        console.log(s);
-        $('#output').append('<div class=logout><pre>' + s + '</pre></div>');
+        var date = moment();
+        var msSinceEpoch = date.valueOf();
+        var strMsSinceEpoch = msSinceEpoch.toString(10);
+        var strTest = 'Mozilla and then some';
+        //console.log(date.toISOString() + ' ' + s);
+        //
+        console.log(strMsSinceEpoch.substring(strMsSinceEpoch.length - 6) + ' ' + s);
+        //console.log(strTest.substring(strTest.length - 5) + ' ' + s);
+
+        //$('#output #outputtable tr:last').append('<tr><td>' + date.toISOString() + '</td><td>' + '<div class=logout><pre>' + s + '</pre></div>' + '</td></tr>');
+        //$('#output #outputtable tr:last').append('<tr><td>' + date.toISOString() + '</td><td>' + '<pre>' + s + '</pre>' + '</td></tr>');
+        //
+        $('#output #outputtable tr:last').append('<tr><td>' + date.toISOString() + '</td><td>' + '' + s + '' + '</td></tr>');
     }
     var p0 = new Promise(function(resolve,reject){
         setTimeout(function(){
@@ -87,8 +98,18 @@ $( document ).ready(function() {
             success: onSuccess
         });
     }
+    logit("D");
     $.when(method1(), method2()).then(showData);
+    logit("E");
     logit("2++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    function f1(v1, v2){
+        logit('f1 (OK)');
+    }
+    function f2(v1, v2){
+        logit('f2 (NOK)');
+    }
+    $.when(p00, p10).then(f1, f2);
+    logit("3++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 });
 
 
