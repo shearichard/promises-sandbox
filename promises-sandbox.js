@@ -32,6 +32,7 @@ $( document ).ready(function() {
             success: onSuccess
         });
     }
+    logit("1++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logit("About to invoke method1 and method 2");
     $.when(method1(), method2()).then(showData);
     logit("Finished invoke of method1 and method 2");
@@ -44,14 +45,19 @@ $( document ).ready(function() {
        return $.ajax('https://httpbin.org/get?A=B,C,D');
     };
 
+    logit("About to invoke myAjaxCall1 and myAjaxCall2");
     $.when( myAjaxCall1(), myAjaxCall2() ).then(function(a1, a2) {
         // a1[0] is data from first ajax call
         // a2[0] is data from second ajax call
-        logit(a1[0]);
+        logit("Reporting results from invocation of myAjaxCall1 and myAjaxCall2");
+        logit(a1[2].status);
         logit(a1[0].args.Z);
-        logit(a2[0]);
+        logit("");
+        logit(a2[2].status);
         logit(a2[0].args.A);
     });    
+    logit("Finished invoke of myAjaxCall1 and myAjaxCall2");
+    logit("3++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 });
 
 
