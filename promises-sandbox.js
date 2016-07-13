@@ -92,14 +92,14 @@ $( document ).ready(function() {
     function method1() {
         return $.ajax('http://jsfiddle.net/echo/jsonp/', {
             dataType: 'jsonp',
-            //jsonp: '$callback',
+            jsonp: '$callback',
             success: onSuccess
         });
     }
     function method2() {
         return $.ajax('http://jsfiddle.net/echo/jsonp/', {
             dataType: 'jsonp',
-            //jsonp: '$callback',
+            jsonp: '$callback',
             success: onSuccess
         });
     }
