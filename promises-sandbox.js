@@ -129,7 +129,9 @@ $( document ).ready(function() {
         // a1[0] is data from first ajax call
         // a2[0] is data from second ajax call
         logit(a1[0]);
+        logit(a1[0].args.Z);
         logit(a2[0]);
+        logit(a2[0].args.A);
     });    
 });
 
