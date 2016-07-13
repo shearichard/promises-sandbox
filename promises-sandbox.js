@@ -47,17 +47,17 @@ $( document ).ready(function() {
     var fetch1 = function() 
     { 
       return function(){
-        $.ajax('https://httpbin.org/get?Z=Y,X,W');  
+        $.ajax('https://httpbin.org/get?A=B,C,D');  
       };
     };
     var fetch11 = function() 
     { 
-      $.ajax('https://httpbin.org/get?Z=Y,X,W');  
+      return $.ajax('https://httpbin.org/get?Z=Y,X,W');  
     };
     //var fetch1 = { return {$.ajax}}
     var goodFetches = function (v1, v2){
       logit("GOOD : All out of when's");
-      logit(v1[0].args.A);
+      //logit(v1[0].args.A);
       //logit(v1[1]);
       //logit(v1[2].statusText);
       //logit(v1[2].responseJSON.args.A);
@@ -69,8 +69,13 @@ $( document ).ready(function() {
       logit(v1.responseText);
       logit(v2.responseText);
     };
-    //$.when( fetch11, $.ajax('https://httpbin.org/get?Z=Y,X,W'))
-    //  .then(goodFetches, badFetches);
+    logit("About to make the two httpbin fetches under a .when");
+    /*
+    $.when( fetch11, $.ajax('https://httpbin.org/get?Z=Y,X,W'))
+        .then(goodFetches, badFetches);
+    */
+    $.when( method2(), $.ajax('https://httpbin.org/get?Z=Y,X,W'))
+        .then(goodFetches, badFetches);
     logit("C");
     logit("1++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     var count = 0;
@@ -82,7 +87,7 @@ $( document ).ready(function() {
     }
         
     function showData() {
-        logit('showData : ' + count);
+        logit('showData : ' + count + ' (invoked when both method1 and method 2 have succeeded)');
     }
     function method1() {
         return $.ajax('http://jsfiddle.net/echo/jsonp/', {
@@ -98,18 +103,34 @@ $( document ).ready(function() {
             success: onSuccess
         });
     }
-    logit("D");
+    logit("About to invoke method1 and method 2");
     $.when(method1(), method2()).then(showData);
-    logit("E");
+    logit("Finished invoke of method1 and method 2");
     logit("2++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     function f1(v1, v2){
-        logit('f1 (OK)');
+        logit('f1 (OK) - gets fired when both p00 and p10 are resolved successfully');
     }
     function f2(v1, v2){
         logit('f2 (NOK)');
     }
+    logit("About to invoke p00 and p10");
     $.when(p00, p10).then(f1, f2);
+    logit("Invoked p00 and p10");
     logit("3++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    var myAjaxCall1 = function() {
+       return $.ajax('https://httpbin.org/get?Z=Y,X,W');
+    };
+
+    var myAjaxCall2 = function() {
+       return $.ajax('https://httpbin.org/get?A=B,C,D');
+    };
+
+    $.when( myAjaxCall1(), myAjaxCall2() ).then(function(a1, a2) {
+        // a1[0] is data from first ajax call
+        // a2[0] is data from second ajax call
+        logit(a1[0]);
+        logit(a2[0]);
+    });    
 });
 
 
