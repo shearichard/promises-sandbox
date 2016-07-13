@@ -80,6 +80,7 @@ $( document ).ready(function() {
     logit("1++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     var count = 0;
     function onSuccess () {
+        logit('In onSuccess. About to increment count. Current value is  : ' + count);
         count++;
     }
     function callback (data) {
@@ -92,14 +93,14 @@ $( document ).ready(function() {
     function method1() {
         return $.ajax('http://jsfiddle.net/echo/jsonp/', {
             dataType: 'jsonp',
-            jsonp: '$callback',
+            //jsonp: '$callback',
             success: onSuccess
         });
     }
     function method2() {
         return $.ajax('http://jsfiddle.net/echo/jsonp/', {
             dataType: 'jsonp',
-            jsonp: '$callback',
+            //jsonp: '$callback',
             success: onSuccess
         });
     }
