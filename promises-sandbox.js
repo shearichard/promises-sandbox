@@ -4,7 +4,7 @@ $( document ).ready(function() {
         var date = moment();
         var msSinceEpoch = date.valueOf();
         var strMsSinceEpoch = msSinceEpoch.toString(10);
-        console.log(strMsSinceEpoch.substring(strMsSinceEpoch.length - 6) + ' ' + s);
+        console.log(strMsSinceEpoch.substring(strMsSinceEpoch.length - 4) + ' ' + s);
     }
     //
     var blnDoTest1 = false;
@@ -69,8 +69,21 @@ $( document ).ready(function() {
     }
     if (blnDoTest2 === true){
         logit("2++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        var myAjaxCall1HIDE = function() {
+            return $.ajax('https://httpbin.org/delay/3?A=B,C,D');
+        };
         var myAjaxCall1 = function() {
-           return $.ajax('https://httpbin.org/delay/3?A=B,C,D');
+            var promise = $.ajax('https://httpbin.org/delay/3?A=B,C,D');
+            promise.done(function(data, textStatus, jqXHR) {
+                logit(".done for myAjaxCall1");
+            })
+            promise.fail(function(data, textStatus, jqXHR) {
+                logit(".fail for myAjaxCall1");
+            })
+            promise.always(function(data, textStatus, jqXHR) {
+                logit(".always for myAjaxCall1");
+            })
+            return promise;
         };
 
         var myAjaxCall2 = function() {
