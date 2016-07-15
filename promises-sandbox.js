@@ -7,14 +7,20 @@ $( document ).ready(function() {
         console.log(strMsSinceEpoch.substring(strMsSinceEpoch.length - 6) + ' ' + s);
     }
     var count = 0;
+    function onSuccess1 (data, textStatus, jqXHR) {
+        logit('In onSuccess1.');
+    }
+    function onSuccess2 (data, textStatus, jqXHR) {
+        logit('In onSuccess2.');
+    }
+    function onSuccess3 (data, textStatus, jqXHR) {
+        logit('In onSuccess3.');
+    }
     function onSuccess (data, textStatus, jqXHR) {
-        debugger;
-        logit('In onError.');
         logit('In onSuccess. About to increment count. Current value is  : ' + count);
         count++;
     }
     function onError (data, textStatus, jqXHR) {
-        debugger;
         logit('In onError.');
     }
     function callback (data) {
@@ -25,32 +31,44 @@ $( document ).ready(function() {
         logit('showData : ' + count + ' (invoked when both method1 and method 2 have succeeded)');
     }
     function method1() {
+        logit("method1");
         return $.ajax('http://jsfiddle.net/echo/jsonp/', {
             dataType: 'jsonp',
             //jsonp: '$callback',
-            success: onSuccess,
+            success: [onSuccess, onSuccess1],
             error: onError
         });
     }
     function method2() {
-        return $.ajax('http://UNLIKELYjsfiddle.net/echo/jsonp/', {
+        logit("method2");
+        return $.ajax('http://jsfiddle.net/echo/jsonp/', {
             dataType: 'jsonp',
             //jsonp: '$callback',
-            success: onSuccess,
+            success: [onSuccess, onSuccess2],
+            error: onError
+        });
+    }
+    function method3() {
+        logit("method3");
+        return $.ajax('http://jsfiddle.net/echo/jsonp/', {
+            dataType: 'jsonp',
+            //jsonp: '$callback',
+            success: [onSuccess, onSuccess3],
             error: onError
         });
     }
     logit("1++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     logit("About to invoke method1 and method 2");
-    $.when(method1(), method2()).then(showData);
+    //$.when(method1(), method2()).then(showData);
+    method1().then(method2()).then(method2()).then(method3());
     logit("Finished invoke of method1 and method 2");
     logit("2++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     var myAjaxCall1 = function() {
-       return $.ajax('https://UNLIKLEYhttpbin.org/get?Z=Y,X,W');
+       return $.ajax('https://httpbin.org/delay/3?A=B,C,D');
     };
 
     var myAjaxCall2 = function() {
-       return $.ajax('https://httpbin.org/get?A=B,C,D');
+       return $.ajax('https://httpbin.org/get?Z=Y,X,W');
     };
     var allGood = function(a1, a2){
         // a1[0] is data from first ajax call
